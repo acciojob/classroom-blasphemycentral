@@ -35,7 +35,7 @@ public class StudentRepository
     {
         if(teacherStudentDB.containsKey(teacher))
         {
-            List<String> list = new ArrayList<>();
+            List<String> list = teacherStudentDB.get(teacher);
             list.add(student);
             teacherStudentDB.put(teacher, list);
         }
@@ -50,16 +50,12 @@ public class StudentRepository
 
     public Student getStudentByName(String name)
     {
-        if(studentDB.containsKey(name))
-        return studentDB.get(name);
-        else return null;
+        return studentDB.getOrDefault(name, null);
     }
 
     public Teacher getTeacherByName(String name)
     {
-        if(teacherDB.containsKey(name))
-        return teacherDB.get(name);
-        else return null;
+        return teacherDB.getOrDefault(name, null);
     }
 
     public List<String> getStudentsByTeacherName(String teacher)
