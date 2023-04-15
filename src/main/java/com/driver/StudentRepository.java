@@ -33,19 +33,22 @@ public class StudentRepository
 
     public void addStudentTeacherPair(String student, String teacher)
     {
-        if(teacherStudentDB.containsKey(teacher))
+        if(studentDB.containsKey(student) && teacherDB.containsKey(teacher))
         {
-            List<String> list = teacherStudentDB.get(teacher);
-            list.add(student);
-            teacherStudentDB.put(teacher, list);
+            if (teacherStudentDB.containsKey(teacher))
+            {
+                List<String> list = teacherStudentDB.get(teacher);
+                list.add(student);
+                teacherStudentDB.put(teacher, list);
+            }
+            else
+            {
+                List<String> list = new ArrayList<>();
+                list.add(student);
+                teacherStudentDB.put(teacher, list);
+            }
+            teacherDB.get(teacher).setNumberOfStudents(teacherStudentDB.get(teacher).size());
         }
-        else
-        {
-            List<String> list = new ArrayList<>();
-            list.add(student);
-            teacherStudentDB.put(teacher, list);
-        }
-        teacherDB.get(teacher).setNumberOfStudents(teacherStudentDB.get(teacher).size());
     }
 
     public Student getStudentByName(String name)
